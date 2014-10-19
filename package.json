@@ -1,18 +1,16 @@
 {
-  "name": "ember-cli-s3",
-  "version": "0.0.0",
+  "name": "ember-cli-s3-sync",
+  "version": "0.0.1",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
   "scripts": {
-    "start": "ember server",
-    "build": "ember build",
     "test": "ember test"
   },
-  "repository": "https://github.com/stefanpenner/ember-cli",
+  "repository": "https://github.com/vestorly/ember-cli-s3",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.11.0"
   },
   "author": "",
   "license": "MIT",
@@ -27,12 +25,28 @@
     "ember-cli-qunit": "0.1.0",
     "ember-data": "1.0.0-beta.10",
     "express": "^4.8.5",
+    "glob": "^4.0.5",
+    "aws-sdk": "^2.0.19",
+    "chalk": "^0.5.1",
+    "core-object": "0.0.2",
+    "extend": "^2.0.0",
+    "rsvp": "^3.0.14",
+    "express": "^4.8.5",
     "glob": "^4.0.5"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "s3"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "config": {
+    "credFilePrompt": false,
+    "s3Options": {
+      "region": "us-east-1",
+      "maxRetries": 2,
+      "sslEnabled": true
+    }
   }
 }
