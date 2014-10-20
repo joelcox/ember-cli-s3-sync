@@ -25,13 +25,6 @@
     "ember-cli-qunit": "0.1.0",
     "ember-data": "1.0.0-beta.10",
     "express": "^4.8.5",
-    "glob": "^4.0.5",
-    "aws-sdk": "^2.0.19",
-    "chalk": "^0.5.1",
-    "core-object": "0.0.2",
-    "extend": "^2.0.0",
-    "rsvp": "^3.0.14",
-    "express": "^4.8.5",
     "glob": "^4.0.5"
   },
   "keywords": [
@@ -43,10 +36,19 @@
   },
   "config": {
     "credFilePrompt": false,
-    "s3Options": {
+    "options": {
       "region": "us-east-1",
       "maxRetries": 2,
-      "sslEnabled": true
+      "sslEnabled": true,
+      "params": {}
     }
+  },
+  "dependencies": {
+    "aws-sdk": "^2.0.19",
+    "chalk": "^0.5.1",
+    "core-object": "0.0.2",
+    "extend": "^2.0.0",
+    "rsvp": "^3.0.14",
+    "readdirp": "^1.1.0"
   }
 }
