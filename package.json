@@ -1,6 +1,7 @@
 {
   "name": "ember-cli-s3-sync",
   "version": "0.0.1",
+  "private": true,
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -8,7 +9,7 @@
   "scripts": {
     "test": "ember test"
   },
-  "repository": "https://github.com/vestorly/ember-cli-s3",
+  "repository": "https://github.com/Vestorly/ember-cli-s3-sync",
   "engines": {
     "node": ">= 0.11.0"
   },
@@ -44,11 +45,13 @@
     }
   },
   "dependencies": {
+    "async": "^0.9.0",
     "aws-sdk": "^2.0.19",
     "chalk": "^0.5.1",
     "core-object": "0.0.2",
     "extend": "^2.0.0",
-    "rsvp": "^3.0.14",
-    "readdirp": "^1.1.0"
+    "mime": "^1.2.11",
+    "readdirp": "^1.1.0",
+    "rsvp": "^3.0.14"
   }
 }
