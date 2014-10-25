@@ -24,20 +24,20 @@ This is a WIP. However it does work as stands for uploading your /dist directory
 
 ## Using with your AWS creds
   This addon uses [`aws-sdk`](https://github.com/aws/aws-sdk-js) so you get some pretty stable behavior when making requests to S3. AWS credentials can be provided in several ways, hopefully satisfying most development environments. Listed below is the order of preference for AWS credentials
-  
-Anything included as a command line argument *should be* king of the hill. However here is current order:
-  1. shared credentials file at [~/.aws/credentials file.](http://blogs.aws.amazon.com/security/post/Tx3D6U6WSFGOK2H/A-New-and-Standardized-Way-to-Manage-Credentials-in-the-AWS-SDKs)
-  2. `ember deploy:s3 --awsSecret=my-secret --awsKey=my-cool-key`
+
+Anything included as a command line argument is king of the hill:
+  1. `ember deploy:s3 --awsSecret=my-secret --awsKey=my-cool-key`
+  2. shared credentials file at [~/.aws/credentials file.](http://blogs.aws.amazon.com/security/post/Tx3D6U6WSFGOK2H/A-New-and-Standardized-Way-to-Manage-Credentials-in-the-AWS-SDKs)
   3. these shell environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
-  4. [TODO] **config-s3.json**:
+  4. config-s3.json
 
   ```
     {
-      "options": { "accessKeyId": "mykeee", "secretAccessKey": "myseeecret" }
+      "options": { "accessKeyId": "mycoolkey", "secretAccessKey": "secretsarecool" }
     }
   ```
-  
-**note** if none of the above are provided. You will be prompted for credentials -blocking the deploy (keep this in mind if using with automated/continuous deployment systems).
+
+**note** if key & secret aren't found at any of the checks above then you will be prompted for credentials -blocking the deploy (keep this in mind if using with automated/continuous deployment systems).
 
 ## How to use
 `ember deploy:s3 --environment=development --awsKey=heybob --awsSecret=asdfasdf --awsBucket=buckets-o-fun`

@@ -1,0 +1,42 @@
+{
+  "promptCredFile": false,
+  "verbose": false,
+
+  "additionalOptions": [
+    { "type": "input",
+      "name": "maxRetries",
+      "default": 2,
+      "message": "Please enter a maximum number of retries to attempt when uploading a file"
+    }
+  ],
+  "extraSteps": {
+    "beforeBuild": {
+      "command": "echo 'starting build'",
+      "arguments": ["environment"],
+      "break": true
+    },
+    "afterBuild": {
+      "command": "echo 'done building :)'",
+      "arguments": ["environment"],
+      "break": true
+    },
+    "beforeDeploy": {
+      "command": "echo 'starting deploy'",
+      "arguments": ["environment", "aws-key", "skip-build"],
+      "break": true
+    },
+    "afterDeploy": {
+      "command": "echo 'done deploying. life's good.",
+      "arguments": ["environment"],
+      "break": true
+    }
+  },
+  "options": {
+    "region": "us-east-1",
+    "maxRetries": 2,
+    "sslEnabled": true,
+    "params": {
+      "Bucket": "ember-cli-deploy-test"
+    }
+  }
+}
