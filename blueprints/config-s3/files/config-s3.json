@@ -11,24 +11,24 @@
   ],
   "extraSteps": {
     "beforeBuild": {
-      "command": "echo 'starting build'",
-      "arguments": ["environment"],
-      "break": true
+      "command": "",
+      "includeOptions": ["environment"],
+      "fail": false
     },
     "afterBuild": {
-      "command": "echo 'done building :)'",
-      "arguments": ["environment"],
-      "break": true
+      "command": "echo 'hey neighbor'",
+      "includeOptions": ["environment"],
+      "fail": false
     },
     "beforeDeploy": {
-      "command": "echo 'starting deploy'",
-      "arguments": ["environment", "aws-key", "skip-build"],
-      "break": true
+      "command": "echo 'EXTRA STEP: starting deploy'",
+      "includeOptions": ["environment", "aws-key", "skip-build"],
+      "fail": false
     },
     "afterDeploy": {
-      "command": "echo 'done deploying. life's good.",
-      "arguments": ["environment"],
-      "break": true
+      "command": "echo 'EXTRA STEP: done deploying. life's good.",
+      "includeOptions": ["environment"],
+      "fail": false
     }
   },
   "options": {
