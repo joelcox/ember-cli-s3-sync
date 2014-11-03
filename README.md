@@ -6,14 +6,13 @@ This is a WIP. However it does work as stands for uploading your /dist directory
 - [ ] write documentation for each function
 - [ ] write documentation describing flow, configurable options, general how to use
 - [ ] deal with errors in conventional way (however ember-cli deals with them);
-- [ ] ability to save config file as `config-s3.json` in project's directory
-- [ ] probably add `config-s3.json` to .gitignore
-- [ ] ability to specify optional params in `config-s3.json` to be prompted for
+- [x] ability to generate `config-s3.js` for deploy configuration
+- [x] ability to specify optional params in `config-s3.json` to be prompted for
 - [ ] ability to sync individual files to s3 bucket
 - [ ] ability to create bucket if specified bucket doesn't exist
 - [ ] ability to authenticate using IAM roles
 - [ ] ability to do a dryrun
-- [ ] ability to skip build task and just deploy a specified directory
+- [x] ability to skip build task and just deploy a specified directory
 - [ ] update s3 with file's ContentMD5, preferrably async after upload
 
 
@@ -55,5 +54,5 @@ possible cli arguments:
   - `awsRegion` (optional. will verify the specified region with aws)
 
 ## Configuring deployment
-  - **config-s3.json**
-  - WIP
+  - **config-s3.js**
+
