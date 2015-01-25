@@ -22,7 +22,7 @@ var developmentConfig = {
   /**
    *  Uses inquirer to display prompts.
    *  [inquirer node module](https://github.com/SBoudrias/Inquirer.js)
-   *  Typical format is:
+   *  Basic format is:
    *  ```javascript
    *  {
    *    type: 'input',
@@ -39,11 +39,18 @@ var developmentConfig = {
     { type: 'input',
       name: 'maxRetries',
       'default': 2,
-      message: 'Please enter a maximum number of retries to attempt when uploading a file'
+      message: 'Please enter a maximum number of retries to attempt when uploading a file',
+      validate: function(value) {
+        if ('number' !== typeof value) {
+          return false;
+        }
+        return value;
+      }
     }
   ],
 
   /**
+   *
    *  There are 4 hooks to customize your deploy
    *  process with external scripts/commands:
    *  `beforeBuild`, `afterBuild`, `beforeDeploy`, and `afterDeploy`
@@ -63,6 +70,7 @@ var developmentConfig = {
    *   e.g. to run 'echo --foo-bar=cool' then do the following:
    *   `{ includeOptions: ['fooBar'] }`
    *   and run `ember deploy:s3 --foo-bar=cool`
+   *
    */
   beforeBuild: [
     {
@@ -99,8 +107,10 @@ var developmentConfig = {
 };
 
 /**
+ *
  *  `--environment` argument gets passed in as `env`.
  *  Default is 'development'
+ *
  */
 module.exports = function(env) {
   env = env || 'development';
