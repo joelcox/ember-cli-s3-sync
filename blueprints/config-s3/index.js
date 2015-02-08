@@ -1,8 +1,8 @@
-var chalk     = require('chalk');
-var fileTool  = require('../../lib/utils/file-tool');
+var Promise = require('../../lib/ext/promise');
+var chalk   = require('chalk');
 
 module.exports = {
-  description: "Build the configuration file for ember-cli-s3-sync",
+  description: "Builds the configuration file for ember-cli-s3-sync (deploy/config.js)",
 
   anonymousOptions: [],
 
@@ -12,22 +12,28 @@ module.exports = {
 
   // TODO: check for credentials file?
   beforeInstall: function() {
-    return;
+    var rootPath = this.project.root;
+
+    var disclaimer = {
+      type: 'confirm',
+      name: 'understand',
+      default: 'y',
+      message: 'Do you want to create deploy/config.js file in your app\'s home directory?'
+    };
+
+    this.ui.writeLine(chalk.red('Do not put your AWS credentials in a public file. \n') +
+                      chalk.yellow('Hide deploy/config.js from versioning (.gitignore, .hgignore, etc.). \n') +
+
+    return this.ui.prompt([disclaimer]).then(function(results) {
+        if (results.understand) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject('deploy/config.js file not created.');
+        }
+      });
   },
 
   afterInstall: function() {
-    var rootPath = this.project.root;
-
-    var gitignorePrompt = {
-      type: 'confirm',
-      name: 'gitignore',
-      default: 'y',
-      message: 'Would you like to add "config-s3.json" file to your .gitignore?'
-    };
-
-    this.ui.writeLine(chalk.red('If placing AWS credentials in ') + chalk.yellow('"config-s3.json"') + chalk.red(' it\'s highly recommended to add file to .gitignore'));
-    return this.ui.prompt([gitignorePrompt]).then(function(results) {
-        return fileTool.addToGitignore('config-s3.json', rootPath);
-      });
+    return;
   }
 };

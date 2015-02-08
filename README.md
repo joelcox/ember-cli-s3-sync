@@ -2,12 +2,11 @@
 This is a WIP. However it does work as stands for uploading your /dist directory to specified bucket. Still -use at your own risk :)
 
 ## TODO
-- [ ] write tests
+- [ ] 100% test coverage
 - [ ] write documentation for each function
 - [ ] write documentation describing flow, configurable options, general how to use
-- [ ] deal with errors in conventional way (however ember-cli deals with them);
 - [ ] ability to save config file as `config-s3.json` in project's directory
-- [ ] probably add `config-s3.json` to .gitignore
+- [x] ability to generate `config-s3.js` for deploy configuration
 - [x] ability to specify optional params in `config-s3.json` to be prompted for
 - [ ] ability to sync individual files to s3 bucket
 - [ ] ability to create bucket if specified bucket doesn't exist
@@ -29,7 +28,7 @@ Anything included as a command line argument is king of the hill:
   1. `ember deploy:s3 --awsSecret=my-secret --awsKey=my-cool-key`
   2. shared credentials file at [~/.aws/credentials file.](http://blogs.aws.amazon.com/security/post/Tx3D6U6WSFGOK2H/A-New-and-Standardized-Way-to-Manage-Credentials-in-the-AWS-SDKs)
   3. these shell environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
-  4. config-s3.json
+  4. deploy/config.js
 
   ```
     {
@@ -40,7 +39,7 @@ Anything included as a command line argument is king of the hill:
 **note** if key & secret aren't found at any of the checks above then you will be prompted for credentials -blocking the deploy (keep this in mind if using with automated/continuous deployment systems).
 
 ## How to use
-`ember deploy:s3 --environment=development --awsKey=heybob --awsSecret=asdfasdf --awsBucket=buckets-o-fun`
+`ember deploy:s3 --environment=development --aws-key=12345 --aws-secret=asdfasdf --aws-bucket=buckets-o-fun`
   - this builds a development version of your app and deploys all files in the `/dist` directory to the S3 bucket "buckets-o-fun"
 
 `ember deploy:s3`
@@ -55,5 +54,6 @@ possible cli arguments:
   - `awsRegion` (optional. will verify the specified region with aws)
 
 ## Configuring deployment
-  - **config-s3.json**
-  - WIP
+  - **deploy/config.js**
+
+

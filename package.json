@@ -1,15 +1,18 @@
 {
   "name": "ember-cli-s3-sync",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
   "scripts": {
-    "test": "ember test"
+    "test": "node tests/runner"
   },
-  "repository": "https://github.com/Vestorly/ember-cli-s3-sync",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vestorly/ember-cli-s3-sync"
+  },
   "engines": {
     "node": ">= 0.11.0"
   },
@@ -19,7 +22,8 @@
     "body-parser": "^1.2.0",
     "broccoli-asset-rev": "0.3.0",
     "broccoli-ember-hbs-template-compiler": "^1.6.1",
-    "dargs": "git://github.com/joebartels/dargs.git#master",
+    "chai": "^1.10.0",
+    "chai-as-promised": "^4.1.1",
     "ember-cli": "0.1.1",
     "ember-cli-content-security-policy": "0.2.0",
     "ember-cli-ic-ajax": "0.1.1",
@@ -27,7 +31,7 @@
     "ember-cli-qunit": "0.1.0",
     "ember-data": "1.0.0-beta.10",
     "express": "^4.8.5",
-    "glob": "^4.0.5"
+    "mocha": "2.1.0"
   },
   "keywords": [
     "ember-addon",
@@ -37,7 +41,7 @@
     "configPath": "tests/dummy/config"
   },
   "config": {
-    "credFilePrompt": false,
+    "promptCredFile": false,
     "options": {
       "region": "us-east-1",
       "maxRetries": 2,
@@ -46,13 +50,16 @@
     }
   },
   "dependencies": {
-    "async": "^0.9.0",
-    "aws-sdk": "^2.0.19",
-    "chalk": "^0.5.1",
+    "async": "0.9.0",
+    "aws-sdk": "2.0.19",
+    "chalk": "0.5.1",
     "core-object": "0.0.2",
-    "extend": "^2.0.0",
-    "mime": "^1.2.11",
-    "readdirp": "^1.1.0",
-    "rsvp": "^3.0.14"
+    "extend": "2.0.0",
+    "mime": "1.2.11",
+    "readdirp": "1.1.0",
+    "rsvp": "3.0.14",
+    "dargs": "2.1.0",
+    "glob": "4.0.6",
+    "requiring": "0.0.3"
   }
 }
