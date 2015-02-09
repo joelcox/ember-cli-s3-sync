@@ -1,8 +1,12 @@
 # Ember-cli-s3-sync
+A customizable tool for deploying your Ember app to Amazon's S3. Customize the deploy by running your own scripts within the process (beforeBuild, afterBuild, beforeDeploy, afterDeploy)
+
 
 ## Install
-* `npm install ember-cli-s3-sync --save-dev`
-* `ember generate config-s3`
+```bash
+npm install ember-cli-s3-sync --save-dev
+ember generate config-s3
+```
 
 ## Authenticating with S3
 This addon uses [`aws-sdk`](https://github.com/aws/aws-sdk-js) for communicating with Amazon S3.  You can provide authentication credentials in the following ways (listed in order of precedence):
@@ -14,7 +18,12 @@ This addon uses [`aws-sdk`](https://github.com/aws/aws-sdk-js) for communicating
 
   ```
     {
-      "options": { "accessKeyId": "mycoolkey", "secretAccessKey": "secretsarecool" }
+      ...
+      options: { 
+        accessKeyId: "mycoolkey", 
+        secretAccessKey: "secretsarecool" 
+      }
+      ...
     }
   ```
 
@@ -39,13 +48,13 @@ possible cli arguments:
 **notes** camelCase args are okay but they'll be converted to their dasherized version.
 
 ## Configuring deployment
-Generate a config file with `ember generate config-s3` (file created at *your-app/deploy/config.js*)
+Generate a config file with `ember generate config-s3` (creates a file at  *your-app/deploy/config.js*)
 The `environment` is passed into config file, which returns an object containing deploy configuration options.
 
 And here are the pieces to [**deploy/config.js**:](https://github.com/Vestorly/ember-cli-s3-sync/blob/master/blueprints/config-s3/files/deploy/config.js)
 #### ember-cli-s3-sync Options
 ```javascript
-{
+{ // deploy/config.js
   ...
   environment: 'development', // not used, but good practice to name the config incase you have several
   promptCredFile: false, // prompts whether or not to use AWS cred file, if one is found.
@@ -56,7 +65,7 @@ And here are the pieces to [**deploy/config.js**:](https://github.com/Vestorly/e
 
 #### [S3 Options:](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property)
 ```javascript
-{
+{ // deploy/config.js
   ...
   options: {
     region: 'us-east-1',
@@ -73,7 +82,7 @@ And here are the pieces to [**deploy/config.js**:](https://github.com/Vestorly/e
 If you want the deploy process to prompt a user for additional options to be merged in for instantiating the S3 Object:
 Uses the [inquirer node module](https://github.com/SBoudrias/Inquirer.js).
 ```javascript
-{
+{ // deploy/config.js
   ...
   additionalOptions: {
     type: 'input',
@@ -95,12 +104,16 @@ Uses the [inquirer node module](https://github.com/SBoudrias/Inquirer.js).
 You can run scripts throughout the deploy process. These scripts must exit their process for the deploy to continue running.
 `beforeBuild` and `afterBuild` are *not* run if you use the `--skip-build` flag.
 ```javascript
-{
+{ // deploy/config.js
   ...
   beforeBuild: [
     {
       command: 'curl -I http://my-site.nyc?deploy=start',
-      includeOptions: ['some-option'], // cli args from `ember deploy:s3 --some-option=hey` to be added to this command
+      // if the cli arg `some-option` is passed in with `ember deploy:s3`. 
+      //   e.g. `ember deploy:s3 --some-option=hey`
+      // then `--some-option=hey` will be included with this command. 
+      //   e.g. `curl -I http://my-site.nyc?deplo=start --some-option=hey`
+      includeOptions: ['some-option'],
       fail: false // whether a non 0 exit code should halt the deploy process
     }
   ],
@@ -116,6 +129,10 @@ You can run scripts throughout the deploy process. These scripts must exit their
   ...
 }
 ```
+
+### known issues
+- custom commands that run between steps (beforeBuild, afterBuild, beforeDeploy, afterDeploy) will build cli args in a way that isn't the most universal: `--some-option=hey`. Many cli tools might not like that equal sign and will instead only accept `--some-option hey`.
+
 
 ## TODO
 - [ ] 100% test coverage
