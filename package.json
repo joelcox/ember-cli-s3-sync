@@ -54,11 +54,12 @@
     "aws-sdk": "2.0.19",
     "chalk": "0.5.1",
     "core-object": "0.0.2",
+    "dargs": "2.1.0",
+    "execSync": "^1.0.2",
     "extend": "2.0.0",
     "mime": "1.2.11",
     "readdirp": "1.1.0",
-    "rsvp": "3.0.14",
-    "dargs": "2.1.0",
-    "requiring": "0.0.3"
+    "requiring": "0.0.3",
+    "rsvp": "3.0.14"
   }
 }
