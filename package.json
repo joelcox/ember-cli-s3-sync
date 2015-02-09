@@ -31,7 +31,9 @@
     "ember-cli-qunit": "0.1.0",
     "ember-data": "1.0.0-beta.10",
     "express": "^4.8.5",
-    "mocha": "2.1.0"
+    "glob": "^4.3.5",
+    "mocha": "2.1.0",
+    "through": "^2.3.6"
   },
   "keywords": [
     "ember-addon",
