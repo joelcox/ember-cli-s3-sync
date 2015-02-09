@@ -22,7 +22,7 @@ module.exports = {
     };
 
     this.ui.writeLine(chalk.red('Do not put your AWS credentials in a public file. \n') +
-                      chalk.yellow('Hide deploy/config.js from versioning (.gitignore, .hgignore, etc.). \n') +
+                      chalk.yellow('Consider hiding deploy/config.js from versioning (.gitignore, .hgignore, etc.). \n'));
 
     return this.ui.prompt([disclaimer]).then(function(results) {
         if (results.understand) {

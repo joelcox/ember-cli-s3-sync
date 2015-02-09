@@ -2,7 +2,7 @@
 
 ## Install
 * `npm install ember-cli-s3-sync --save-dev`
-* `npm install`
+* `ember generate config-s3`
 
 ## Authenticating with S3
 This addon uses [`aws-sdk`](https://github.com/aws/aws-sdk-js) for communicating with Amazon S3.  You can provide authentication credentials in the following ways (listed in order of precedence):
@@ -39,6 +39,7 @@ possible cli arguments:
 **notes** camelCase args are okay but they'll be converted to their dasherized version.
 
 ## Configuring deployment
+Generate a config file with `ember generate config-s3` (file created at *your-app/deploy/config.js*)
 The `environment` is passed into config file, which returns an object containing deploy configuration options.
 
 And here are the pieces to [**deploy/config.js**:](https://github.com/Vestorly/ember-cli-s3-sync/blob/master/blueprints/config-s3/files/deploy/config.js)
@@ -55,7 +56,7 @@ And here are the pieces to [**deploy/config.js**:](https://github.com/Vestorly/e
 
 #### [S3 Options:](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property)
 ```javascript
-{ 
+{
   ...
   options: {
     region: 'us-east-1',
@@ -74,7 +75,7 @@ Uses the [inquirer node module](https://github.com/SBoudrias/Inquirer.js).
 ```javascript
 {
   ...
-  additionalOptions: { 
+  additionalOptions: {
     type: 'input',
     name: 'maxRetries',
     'default': 2,
