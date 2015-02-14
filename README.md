@@ -1,4 +1,4 @@
-# Ember-cli-s3-sync
+# Ember-cli-s3-sync [![Build Status](https://travis-ci.org/Vestorly/ember-cli-s3-sync.svg?branch=command_line_args)](https://travis-ci.org/Vestorly/ember-cli-s3-sync)
 A customizable tool for deploying your Ember app to Amazon's S3. Customize the deploy by running your own scripts within the process (beforeBuild, afterBuild, beforeDeploy, afterDeploy)
 
 
@@ -19,9 +19,9 @@ This addon uses [`aws-sdk`](https://github.com/aws/aws-sdk-js) for communicating
   ```
     {
       ...
-      options: { 
-        accessKeyId: "mycoolkey", 
-        secretAccessKey: "secretsarecool" 
+      options: {
+        accessKeyId: "mycoolkey",
+        secretAccessKey: "secretsarecool"
       }
       ...
     }
@@ -109,10 +109,10 @@ You can run scripts throughout the deploy process. These scripts must exit their
   beforeBuild: [
     {
       command: 'curl -I http://my-site.nyc?deploy=start',
-      // if the cli arg `some-option` is passed in with `ember deploy:s3`. 
-      //   e.g. `ember deploy:s3 --some-option=hey`
-      // then `--some-option=hey` will be included with this command. 
-      //   e.g. `curl -I http://my-site.nyc?deplo=start --some-option=hey`
+      // if the cli arg `some-option` is passed in with `ember deploy:s3`.
+      //   e.g. `ember deploy:s3 --header='X-Update: 1'`
+      // then `--some-option=hey` will be included with this command.
+      //   e.g. `curl -I http://my-site.nyc?deploy=start --header 'X-Update: 1'`
       includeOptions: ['some-option'],
       fail: false // whether a non 0 exit code should halt the deploy process
     }
@@ -130,20 +130,15 @@ You can run scripts throughout the deploy process. These scripts must exit their
 }
 ```
 
-### known issues
-- custom commands that run between steps (beforeBuild, afterBuild, beforeDeploy, afterDeploy) will build cli args in a way that isn't the most universal: `--some-option=hey`. Many cli tools might not like that equal sign and will instead only accept `--some-option hey`.
-
-
 ## TODO
 - [ ] 100% test coverage
 - [ ] write documentation for each function
 - [ ] write documentation describing flow, configurable options, general how to use
-- [ ] ability to save config file as `config-s3.json` in project's directory
+- [x] ability to save config file
 - [x] ability to generate `config-s3.js` for deploy configuration
 - [x] ability to specify optional params in `config-s3.json` to be prompted for
 - [ ] ability to sync individual files to s3 bucket
 - [ ] ability to create bucket if specified bucket doesn't exist
-- [ ] ability to authenticate using IAM roles
 - [ ] ability to do a dryrun
 - [x] ability to skip build task and just deploy a specified directory
 - [ ] update s3 with file's ContentMD5, preferrably async after upload
