@@ -1,4 +1,11 @@
 # ember-cli-s3-sync Changelog
+
+### 0.0.5
+
+
+
+* [FEATURE] allow default cli-args when running custom scripts during deploy process
+
 ### 0.0.4
 
 This release introduces better formatted for running extra-step commands and more test coverage.
