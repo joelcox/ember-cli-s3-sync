@@ -85,18 +85,20 @@ Uses the [inquirer node module](https://github.com/SBoudrias/Inquirer.js).
 ```javascript
 { // deploy/config.js
   ...
-  additionalOptions: {
-    type: 'input',
-    name: 'maxRetries',
-    'default': 2,
-    message: 'Please enter a maximum number of retries to attempt when uploading a file',
-    validate: function(value) {
-      if ('number' !== typeof value) {
-        return false;
+  additionalOptions: [
+    {
+      type: 'input',
+      name: 'maxRetries',
+      'default': 2,
+      message: 'Please enter a maximum number of retries to attempt when uploading a file',
+      validate: function(value) {
+        if ('number' !== typeof value) {
+          return false;
+        }
+        return value;
       }
-      return value;
     }
-  },
+  ]
   ...
 }
 ```
@@ -129,7 +131,7 @@ You can run scripts throughout the deploy process. These scripts must exit their
 #### Example Deploy Steps:
 **providing default cli-arguments to run with your custom scripts:**
 <br>
-Running: `ember deploy:s3`
+Running: `ember deploy:s3 --compressed`
 ```javascript
 { // deploy/config.js
   ...
@@ -143,9 +145,9 @@ Running: `ember deploy:s3`
   ...
 }
 ```
-will run the following command, waiting for it to exit before deploy assets to S3:
+will run the following command, waiting for it to exit before deploying assets to S3:
 <br>
-`curl http://httpbin.com/headers --header "X-Forwarded-For: mysite.com" --head`
+`curl http://httpbin.com/headers --compressed --header "X-Forwarded-For: mysite.com" --head`
 
 **notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag
 
