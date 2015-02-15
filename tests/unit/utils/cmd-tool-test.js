@@ -1,7 +1,7 @@
 'use strict';
 
 var assert    = require('assert');
-var command = require('../../../lib/utils/command');
+var command = require('../../../lib/utils/cmd-tool');
 
 describe('Command', function() {
   var dummyCommand = ' echo "command test" ';
@@ -9,6 +9,8 @@ describe('Command', function() {
   var dummyIncludes = ['foo', 'falsy', 'num'];
 
   var dummyIncludesTwo = ['truthy', 'someOption', 'nonExistent'];
+
+  var includesWithDefaults = ['foo', { truthy: 'yes!' }, { notProvided: 'i am a default' }];
 
   var dummyOptions = {
     foo: 'bar',
@@ -35,6 +37,13 @@ describe('Command', function() {
   it('Builds properly formatted command with truthy, string, and ignores non-existent cli options', function() {
     var actual = command.build(dummyCommand, dummyOptions, dummyIncludesTwo);
     var expect = 'echo "command test" --truthy --some-option "i am spacey"';
+
+    assert.equal(actual, expect, 'Command formatted correctly');
+  });
+
+  it('Builds properly formatted command using default args when no arg is provided', function() {
+    var actual = command.build(dummyCommand, dummyOptions, includesWithDefaults);
+    var expect = 'echo "command test" --truthy --not-provided "i am a default" --foo bar';
 
     assert.equal(actual, expect, 'Command formatted correctly');
   });
