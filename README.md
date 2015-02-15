@@ -30,8 +30,8 @@ This addon uses [`aws-sdk`](https://github.com/aws/aws-sdk-js) for communicating
 **note** if key & secret aren't found at any of the checks above then you will be prompted for credentials -blocking the deploy (keep this in mind if using with automated/continuous deployment systems).
 
 ## How to use
-`ember deploy:s3 --environment=development --aws-key=12345 --aws-secret=asdfasdf --aws-bucket=buckets-o-fun`
-  - this builds a development version of your app and deploys all files in the `/dist` directory to the S3 bucket "buckets-o-fun"
+`ember deploy:s3 --environment=production --aws-key=12345 --aws-secret=asdfasdf --aws-bucket=buckets-o-fun`
+  - this builds a production version of your app and deploys all files in the `/dist` directory to the S3 bucket "buckets-o-fun"
 
 `ember deploy:s3`
   - this will build development version of your app and prompt you for `awsKey`, `awsSecret`, and `awsBucket`
@@ -45,7 +45,7 @@ possible cli arguments:
   - `aws-region` (optional. will be verified and updated if necessary during deploy process)
   - `skip-build` (optional. will skip the build, deploying whatever is in `/dist`)
 
-**notes** camelCase args are okay but they'll be converted to their dasherized version.
+**notes:** camelCase args are okay but they'll be converted to their dasherized version.
 
 ## Configuring deployment
 Generate a config file with `ember generate config-s3` (creates a file at  *your-app/deploy/config.js*)
@@ -80,6 +80,7 @@ And here are the pieces to [**deploy/config.js**:](https://github.com/Vestorly/e
 
 #### Prompt for additional Options:
 If you want the deploy process to prompt a user for additional options to be merged in for instantiating the S3 Object:
+<br>
 Uses the [inquirer node module](https://github.com/SBoudrias/Inquirer.js).
 ```javascript
 { // deploy/config.js
@@ -102,18 +103,13 @@ Uses the [inquirer node module](https://github.com/SBoudrias/Inquirer.js).
 
 #### Deploy Steps:
 You can run scripts throughout the deploy process. These scripts must exit their process for the deploy to continue running.
-`beforeBuild` and `afterBuild` are *not* run if you use the `--skip-build` flag.
 ```javascript
 { // deploy/config.js
   ...
   beforeBuild: [
     {
-      command: 'curl -I http://my-site.nyc?deploy=start',
-      // if the cli arg `some-option` is passed in with `ember deploy:s3`.
-      //   e.g. `ember deploy:s3 --header='X-Update: 1'`
-      // then `--some-option=hey` will be included with this command.
-      //   e.g. `curl -I http://my-site.nyc?deploy=start --header 'X-Update: 1'`
-      includeOptions: ['some-option'],
+      command: 'curl http://my-site.nyc?new_build=start', // base command to run
+      includeOptions: ['someOption', 'anotherOption'], // options to include as cli-args for base command
       fail: false // whether a non 0 exit code should halt the deploy process
     }
   ],
@@ -130,16 +126,40 @@ You can run scripts throughout the deploy process. These scripts must exit their
 }
 ```
 
+#### Example Deploy Steps:
+**providing default cli-arguments to run with your custom scripts:**
+<br>
+Running: `ember deploy:s3`
+```javascript
+{ // deploy/config.js
+  ...
+  beforeDeploy: [
+    { 
+      command: 'curl http://httpbin.com/headers',
+      includeOptions: ['compressed', { header: 'X-Forwarded-For: mysite.com' }, { head: true }, 'beh'],
+      fail: false 
+    }
+  ],
+  ...
+}
+```
+will run the following command, waiting for it to exit before deploy assets to S3:
+<br>
+`curl http://httpbin.com/headers --header "X-Forwarded-For: mysite.com" --head`
+
+**notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag
+
 ## TODO
-- [ ] 100% test coverage
+- [ ] better test coverage
 - [ ] write documentation for each function
-- [ ] write documentation describing flow, configurable options, general how to use
+- [x] write documentation describing flow, configurable options, general how to use
 - [x] ability to save config file
 - [x] ability to generate `config-s3.js` for deploy configuration
 - [x] ability to specify optional params in `config-s3.json` to be prompted for
 - [ ] ability to sync individual files to s3 bucket
-- [ ] ability to create bucket if specified bucket doesn't exist
 - [ ] ability to do a dryrun
 - [x] ability to skip build task and just deploy a specified directory
-- [ ] update s3 with file's ContentMD5, preferrably async after upload
+- [x] support gzipped files
+- [ ] ability to set meta data (headers) for files, such as `Expires`
+- [ ] update s3 with file's ContentMD5
 
