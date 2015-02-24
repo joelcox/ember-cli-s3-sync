@@ -131,26 +131,50 @@ You can run scripts throughout the deploy process. These scripts must exit their
 ```
 
 #### Example Deploy Steps:
+
 **providing default cli-arguments to run with your custom scripts:**
 <br>
-Running: `ember deploy:s3 --compressed`
+Running: `ember deploy:s3 --compressed --head=false --header="Pragma: no-cache"`
 ```javascript
 { // deploy/config.js
   ...
   beforeDeploy: [
     {
       command: 'curl http://httpbin.com/headers',
-      includeOptions: ['compressed', { header: 'X-Forwarded-For: mysite.com' }, { head: true }, 'beh'],
+      includeOptions: [
+        'compressed', 
+        'beh',
+        { header: 'X-Host: mysite.com' },
+        { header: 'X-Update: 1' },
+        { head: true }
+      ],
       fail: false
     }
   ],
   ...
 }
 ```
-will run the following command, waiting for it to exit before deploying assets to S3:
+will run the following command, waiting for it to exit before deploying assets to S3 (`beforeDeploy` hook):
 <br>
-`curl http://httpbin.com/headers --compressed --header "X-Forwarded-For: mysite.com" --head`
+`curl http://httpbin.com/headers --compressed --header "X-Host: mysite.com" --header "X-Update: 1" --header "Pragma: no-cache"`
 
+**explaination:**
+* `--compressed` 
+
+  > was passed with`ember deploy:s3` and so it was included
+* `--beh`
+
+  > was **not** passed with `ember deploy:s3` and so it was ignored
+* `--header "X-Host: mysite.com"` and `--header "X-Update: 1"` 
+
+  > were defined as defaults so they were included
+* `--header "Pragma: no-cache"` 
+
+  > was passed with `ember deploy:s3` and included because there exists a `header` key in `includeOptions` Array. It did **not** overwrite any defaults since there were multiple defaults.
+* `--head` 
+
+  > was passed as `false` with `ember deploy:s3` and so it overwrote the default
+  
 **notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag.
 <br>
 values with spaces are enclosed in double quotes ("value here") [what does that mean?](http://stackoverflow.com/a/6697781/1456738)
