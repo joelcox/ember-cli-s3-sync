@@ -102,6 +102,8 @@ Uses the [inquirer node module](https://github.com/SBoudrias/Inquirer.js).
   ...
 }
 ```
+**notes:** when a `name` (e.g., `maxRetries`) is in both `additionalOptions` and the `options` hash,
+then the value defined in the `options` hash takes precedence and the user will not be prompted.
 
 #### Deploy Steps:
 You can run scripts throughout the deploy process. These scripts must exit their process for the deploy to continue running.
@@ -136,10 +138,10 @@ Running: `ember deploy:s3 --compressed`
 { // deploy/config.js
   ...
   beforeDeploy: [
-    { 
+    {
       command: 'curl http://httpbin.com/headers',
       includeOptions: ['compressed', { header: 'X-Forwarded-For: mysite.com' }, { head: true }, 'beh'],
-      fail: false 
+      fail: false
     }
   ],
   ...
@@ -149,7 +151,11 @@ will run the following command, waiting for it to exit before deploying assets t
 <br>
 `curl http://httpbin.com/headers --compressed --header "X-Forwarded-For: mysite.com" --head`
 
-**notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag
+**notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag.
+<br>
+values with spaces are enclosed in double quotes ("value here") [what does that mean?](http://stackoverflow.com/a/6697781/1456738)
+- double quotes means that some characters (e.g., '*', '@', $', '`', '"', '\', '!') will preserve their special meaning. Some of these special characters can be taken literally when preceded by a backslash.
+
 
 ## TODO
 - [ ] better test coverage
