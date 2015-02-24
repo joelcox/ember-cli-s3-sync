@@ -44,6 +44,7 @@ possible cli arguments:
   - `aws-bucket` (required. will prompt if not provided as cli arg or found in *deploy/config.js*)
   - `aws-region` (optional. will be verified and updated if necessary during deploy process)
   - `skip-build` (optional. will skip the build, deploying whatever is in `/dist`)
+  - `prepend-path` (optional. will upload assets to the 'subdirectory' path defined here)
 
 **notes:** camelCase args are okay but they'll be converted to their dasherized version.
 
@@ -142,7 +143,7 @@ Running: `ember deploy:s3 --compressed --head=false --header="Pragma: no-cache"`
     {
       command: 'curl http://httpbin.com/headers',
       includeOptions: [
-        'compressed', 
+        'compressed',
         'beh',
         { header: 'X-Host: mysite.com' },
         { header: 'X-Update: 1' },
@@ -159,22 +160,22 @@ will run the following command, waiting for it to exit before deploying assets t
 `curl http://httpbin.com/headers --compressed --header "X-Host: mysite.com" --header "X-Update: 1" --header "Pragma: no-cache"`
 
 **explaination:**
-* `--compressed` 
+* `--compressed`
 
   > was passed with`ember deploy:s3` and so it was included
 * `--beh`
 
   > was **not** passed with `ember deploy:s3` and so it was ignored
-* `--header "X-Host: mysite.com"` and `--header "X-Update: 1"` 
+* `--header "X-Host: mysite.com"` and `--header "X-Update: 1"`
 
   > were defined as defaults so they were included
-* `--header "Pragma: no-cache"` 
+* `--header "Pragma: no-cache"`
 
   > was passed with `ember deploy:s3` and included because there exists a `header` key in `includeOptions` Array. It did **not** overwrite any defaults since there were multiple defaults.
-* `--head` 
+* `--head`
 
   > was passed as `false` with `ember deploy:s3` and so it overwrote the default
-  
+
 **notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag.
 <br>
 values with spaces are enclosed in double quotes ("value here") [what does that mean?](http://stackoverflow.com/a/6697781/1456738)
