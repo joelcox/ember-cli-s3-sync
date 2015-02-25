@@ -1,5 +1,11 @@
 # ember-cli-s3-sync Changelog
 
+### 0.0.8
+* [FEATURE] specify multiple default cli-args inside `includeOptions` Array
+* [BREAKING ENHANCHEMENT] cli-args for custom commands are escaped using a proper tool [shell-escape](https://github.com/xxorax/node-shell-escape). cli-args are no longer always wrapped in double quotes
+* [TESTS] add tests for formatting a custom command
+
+
 ### 0.0.5
 
 
