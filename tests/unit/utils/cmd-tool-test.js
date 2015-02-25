@@ -57,8 +57,8 @@ describe('Command', function() {
   it('Builds properly formatted command with truthy, string, and ignores non-existent cli options', function() {
     var actual = command.build(dummyCommand, dummyOptions, dummyIncludesTwo);
     var expect = 'echo "command test" ' +
-                '--truthy ' +
-                '--some-option "i am spacey"';
+                "--truthy " +
+                "--some-option 'i am spacey'";
 
     assert.equal(actual, expect, 'Command formatted correctly');
   });
@@ -77,7 +77,7 @@ describe('Command', function() {
     var actual = command.build(dummyCommand, dummyOptions, includesWithDefaults);
     var expect = 'echo "command test" ' +
                 '--truthy ' +
-                '--not-provided "i am a default" ' +
+                '--not-provided \'i am a default\' ' +
                 '--foo bar';
 
     assert.equal(actual, expect, 'Command formatted correctly');
@@ -86,10 +86,10 @@ describe('Command', function() {
   it('Builds properly formatted command using multi-value default args', function() {
     var actual = command.build(dummyCommand, {}, includesWithDuplicates);
     var expect = 'echo "command test" ' +
-                '--cookie session=abcdef ' +
-                '--header "Content-Type: text/html" ' +
-                '--header "Connection: keep-alive" ' +
-                '--proxy-header "Accept-Encoding: gzip"';
+                "--cookie 'session=abcdef' " +
+                "--header 'Content-Type: text/html' " +
+                "--header 'Connection: keep-alive' " +
+                "--proxy-header 'Accept-Encoding: gzip'";
 
     assert.equal(actual, expect, 'Command formatted correctly');
   });
@@ -97,13 +97,13 @@ describe('Command', function() {
   it('Correctly handles merging multi-value defaults with multi-value options', function() {
     var actual = command.build(dummyCommand, dummyOptionsWithMulti, includesWithDuplicates);
     var expect = 'echo "command test" ' +
-                '--cookie session=abcdef ' +
-                '--cookie GMT=-5 ' +
-                '--header "Content-Type: text/html" ' +
-                '--header "Connection: keep-alive" ' +
-                '--header "X-Forwarded-For: me.com" ' +
-                '--proxy-header "Host: me.com" ' +
-                '--proxy-header "Accept-Encoding: gzip"';
+                "--cookie 'session=abcdef' " +
+                "--cookie 'GMT=-5' " +
+                "--header 'Content-Type: text/html' " +
+                "--header 'Connection: keep-alive' " +
+                "--header 'X-Forwarded-For: me.com' " +
+                "--proxy-header 'Host: me.com' " +
+                "--proxy-header 'Accept-Encoding: gzip'";
 
     assert.equal(actual, expect, 'Command formatted correctly');
   });
