@@ -45,8 +45,8 @@ describe('Extra Step', function() {
   ];
 
   var dummyCommandsWithOptions = [
-    'echo "command number 4" --foo bar --num 24',
-    'echo "command number 5" --truthy --some-option "i am a string"',
+    "echo \"command number 4\" --foo bar --num 24",
+    "echo \"command number 5\" --truthy --some-option 'i am a string'",
   ];
 
   beforeEach(function() {

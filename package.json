@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-s3-sync",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": false,
   "directories": {
     "doc": "doc",
@@ -57,11 +57,12 @@
     "chalk": "0.5.1",
     "core-object": "0.0.2",
     "dargs": "2.1.0",
-    "sync-exec": "0.4.0",
     "extend": "2.0.0",
     "mime": "1.2.11",
     "readdirp": "1.1.0",
     "requiring": "0.0.3",
-    "rsvp": "3.0.14"
+    "rsvp": "3.0.14",
+    "shell-escape": "^0.2.0",
+    "sync-exec": "0.4.0"
   }
 }
