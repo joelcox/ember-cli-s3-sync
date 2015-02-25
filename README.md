@@ -177,10 +177,6 @@ will run the following command, waiting for it to exit before deploying assets t
   > was passed as `false` with `ember deploy:s3` and so it overwrote the default
 
 **notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag.
-<br>
-values with spaces are enclosed in double quotes ("value here") [what does that mean?](http://stackoverflow.com/a/6697781/1456738)
-- double quotes means that some characters (e.g., '*', '@', $', '`', '"', '\', '!') will preserve their special meaning. Some of these special characters can be taken literally when preceded by a backslash.
-
 
 ## TODO
 - [ ] better test coverage

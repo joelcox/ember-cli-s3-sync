@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-s3-sync",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": false,
   "directories": {
     "doc": "doc",
