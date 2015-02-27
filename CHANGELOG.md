@@ -5,10 +5,10 @@
 * [BREAKING ENHANCHEMENT] cli-args for custom commands are escaped using a proper tool [shell-escape](https://github.com/xxorax/node-shell-escape). cli-args are no longer always wrapped in double quotes
 * [TESTS] add tests for formatting a custom command
 
+### 0.0.6
+* [FEATURE] new cli-arg 'prepend-path' allows you to specify a subdirectory in an s3 bucket to put assets
 
 ### 0.0.5
-
-
 
 * [FEATURE] allow default cli-args when running custom scripts during deploy process
 
