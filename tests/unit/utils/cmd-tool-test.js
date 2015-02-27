@@ -2,6 +2,7 @@
 
 var assert    = require('assert');
 var command = require('../../../lib/utils/cmd-tool');
+var MockUI    = require('../../helpers/mock-ui');
 
 describe('Command', function() {
   var dummyCommand = ' echo "command test" ';
@@ -106,6 +107,33 @@ describe('Command', function() {
                 "--proxy-header 'Accept-Encoding: gzip'";
 
     assert.equal(actual, expect, 'Command formatted correctly');
+  });
+
+  it('Runs the command, resolving the promise on completion', function() {
+    var ui = new MockUI;
+
+    return command.run("exit 0", ui).then(function(result) {
+      var expect = "exit 0";
+      assert.equal(ui.escaped, expect, "Runs the correct command");
+      assert.ok(true, "Command resolved a promise");
+    }, function(err) {
+      assert.ok(false, "Command error'ed out :(")
+    });
+  });
+
+  it('Runs the command, rejecting the promise on non-zero exit code', function() {
+    var ui = new MockUI;
+
+    return command.run("exit 1", ui).then(function(result) {
+      var expect = "exit 1";
+      assert.ok(false, "Command resolved a promise");
+    }, function(err) {
+      assert.ok(true, "Command error'ed out :)");
+    }).finally(function() {
+      var expect = "exit 1";
+      assert.equal(ui.escaped, expect, "Runs the correct command");
+    })
+
   });
 
 });
