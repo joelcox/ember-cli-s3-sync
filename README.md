@@ -160,21 +160,49 @@ will run the following command, waiting for it to exit before deploying assets t
 `curl http://httpbin.com/headers --compressed --header "X-Host: mysite.com" --header "X-Update: 1" --header "Pragma: no-cache"`
 
 **explaination:**
-* `--compressed`
+> `--compressed`
+  >> was passed with`ember deploy:s3` and so it was included
+  
+> `--beh`
+  >> was **not** passed with `ember deploy:s3` and so it was ignored
+  
+> `--header "X-Host: mysite.com"` and `--header "X-Update: 1"`
+  >> were defined as defaults so they were included
+  
+> `--header "Pragma: no-cache"`
+  >> was passed with `ember deploy:s3` and included because there exists a `header` key in `includeOptions` Array. It did **not** overwrite any defaults since there were multiple defaults.
+  
+> `--head`
+  >> was passed as `false` with `ember deploy:s3` and so it overwrote the default
 
-  > was passed with`ember deploy:s3` and so it was included
-* `--beh`
 
-  > was **not** passed with `ember deploy:s3` and so it was ignored
-* `--header "X-Host: mysite.com"` and `--header "X-Update: 1"`
+**Example config for deploying YUI docs with [ember-cli-yuidoc](https://github.com/cibernox/ember-cli-yuidoc):**
+<br>
+Running: `ember deploy:s3 --environment documentation --output-path docs --prepend-path docs --skip-build`
+```javascript
+var documentationConfig = { // deploy/config.js
+  ...
+  params: {
+    Bucket: 'bucket-o-docs'
+  },
+  beforeDeploy: [
+    {
+      command: 'ember ember-cli-yuidoc',
+      includeOptions: [],
+      fail: true
+    }
+  ],
+  ...
+};
 
-  > were defined as defaults so they were included
-* `--header "Pragma: no-cache"`
-
-  > was passed with `ember deploy:s3` and included because there exists a `header` key in `includeOptions` Array. It did **not** overwrite any defaults since there were multiple defaults.
-* `--head`
-
-  > was passed as `false` with `ember deploy:s3` and so it overwrote the default
+module.exports = function(env) {
+  return (env === 'documentation') ? documentationConfig : 'development';
+};
+```
+* `--environment` gets passed into **deploy/config.js** so that it can determine which config object to return
+* `--output-path` is the local folder (relative to project dir) where assets are located
+* `--prepend-path` is a way to specify a 'subdirectory', inside s3 bucket, to upload assets
+* `--skip-build` says to skip building the actual app (`ember build`) 
 
 **notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag.
 
