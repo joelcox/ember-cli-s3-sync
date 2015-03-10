@@ -14,7 +14,7 @@
     "url": "https://github.com/Vestorly/ember-cli-s3-sync"
   },
   "engines": {
-    "node": ">= 0.11.0"
+    "node": ">= 0.10.28"
   },
   "author": "",
   "license": "MIT",
