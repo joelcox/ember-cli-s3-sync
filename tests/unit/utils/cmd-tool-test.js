@@ -114,7 +114,8 @@ describe('Command', function() {
 
     return command.run("exit 0", ui).then(function(result) {
       var expect = "exit 0";
-      assert.equal(ui.escaped, expect, "Runs the correct command");
+      var actual = ui.escaped();
+      assert.equal(actual, expect, "Runs the correct command");
       assert.ok(true, "Command resolved a promise");
     }, function(err) {
       assert.ok(false, "Command error'ed out :(")
@@ -125,13 +126,13 @@ describe('Command', function() {
     var ui = new MockUI;
 
     return command.run("exit 1", ui).then(function(result) {
-      var expect = "exit 1";
       assert.ok(false, "Command resolved a promise");
     }, function(err) {
       assert.ok(true, "Command error'ed out :)");
     }).finally(function() {
       var expect = "exit 1";
-      assert.equal(ui.escaped, expect, "Runs the correct command");
+      var actual = ui.escaped(ui.output)
+      assert.equal(actual, expect, "Runs the correct command");
     })
 
   });
