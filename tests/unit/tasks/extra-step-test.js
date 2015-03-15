@@ -2,7 +2,7 @@
 
 var assert    = require('assert');
 var extraStep = require('../../../lib/tasks/extra-step');
-var MockUI    = require('../../helpers/mock-ui');
+var MockUI    = require('ember-cli/tests/helpers/mock-ui');
 
 describe('Extra Step', function() {
   var ui;
