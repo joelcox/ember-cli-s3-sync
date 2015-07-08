@@ -1,5 +1,8 @@
 # ember-cli-s3-sync Changelog
 
+### 0.0.9
+* [BUGFIX] concurrency was lowered to 1 at a time for uploading files to s3
+
 ### 0.0.8
 * [FEATURE] specify multiple default cli-args inside `includeOptions` Array
 * [BREAKING ENHANCHEMENT] cli-args for custom commands are escaped using a proper tool [shell-escape](https://github.com/xxorax/node-shell-escape). cli-args are no longer always wrapped in double quotes
