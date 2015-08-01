@@ -1,5 +1,13 @@
 # ember-cli-s3-sync Changelog
 
+### 0.0.10
+* [MAINT] removed `async` module and use a simpler approach for uploading files consecutively.
+* [MAINT] added a hardcoded timeout of 30 seconds that prints out the file attempting to be uploaded.<br>
+        How to handle this is still up in the works. Possible behavior:
+          - Skip file and add it to end of queue (unless it resolved in meantime)
+          - Cancel entire build ?
+          - Retry upload right away (Can you cancel an initiated upload to S3?)
+
 ### 0.0.9
 * [BUGFIX] concurrency was lowered to 1 at a time for uploading files to s3
 
