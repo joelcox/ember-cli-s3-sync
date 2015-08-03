@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-s3-sync",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": false,
   "directories": {
     "doc": "doc",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
-    "ember-cli": "^0.1.5",
+    "ember-cli": "^0.2.0",
     "glob": "^4.3.5",
     "mocha": "2.1.0",
     "strip-ansi": "2.0.1",
@@ -46,7 +46,6 @@
     }
   },
   "dependencies": {
-    "async": "0.9.0",
     "aws-sdk": "2.0.19",
     "chalk": "0.5.1",
     "core-object": "0.0.2",

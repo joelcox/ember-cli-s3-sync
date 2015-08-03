@@ -1,4 +1,4 @@
-var Promise = require('../../lib/ext/promise');
+var Promise = require('ember-cli/lib/ext/promise');
 var chalk   = require('chalk');
 
 module.exports = {
