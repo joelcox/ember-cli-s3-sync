@@ -1,5 +1,10 @@
 # ember-cli-s3-sync Changelog
 
+### 0.0.11
+* [FEATURE] allow setting of environment variables. Useful for resetting (local copies of) global variables that each child process gets. e.g.
+**extraSteps**, **build**, and **deploy** all run in child processes with a copy of the parent shell's environment variables. This feature allows you to modify
+the child_process' copy of those variables without modifying the parent process environment variables.
+
 ### 0.0.10
 * [MAINT] removed `async` module and use a simpler approach for uploading files consecutively.
 * [MAINT] added a hardcoded timeout of 30 seconds that prints out the file attempting to be uploaded.<br>
