@@ -18,6 +18,7 @@ var developmentConfig = {
       Bucket: 'ember-cli-deploy-test'
     },
   },
+  processEnv: { },
 
   /**
    *  Uses inquirer to display prompts.
