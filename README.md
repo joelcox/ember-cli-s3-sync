@@ -206,6 +206,20 @@ module.exports = function(env) {
 
 **notes:** `beforeBuild` and `afterBuild` are not run if you use `--skip-build` flag.
 
+#### Environment variables
+If the build/deploy process relies on certain shell environment variables, those can be set explicitely for each deploy environment. e.g.,
+```js
+//deploy/config.js
+{
+  ...
+  processEnv: {
+    API_URL: 'http://api.website.com'
+  }
+  ...
+}
+```
+See [issue 26](https://github.com/Vestorly/ember-cli-s3-sync/issues/26) for rationale and example use case.
+
 ## TODO
 - [ ] better test coverage
 - [ ] write documentation for each function
