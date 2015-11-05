@@ -17,6 +17,7 @@ var developmentConfig = {
     params: {
       Bucket: 'ember-cli-deploy-test'
     },
+    objectParams: { },
   },
   processEnv: { },
 
